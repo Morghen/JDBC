@@ -7,6 +7,7 @@ package client;
 
 import java.util.Map;
 import java.util.TreeMap;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,12 +15,12 @@ import java.util.TreeMap;
  */
 public class loginForm extends javax.swing.JDialog {
 
-    private int value;
     public Map<String,String> tableLogin = new TreeMap();
     
     public loginForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
         tableLogin.put("jdbc","bramau");
     }
 
@@ -40,6 +41,7 @@ public class loginForm extends javax.swing.JDialog {
         loginField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Login");
 
         BouttonOK.setText("OK");
         BouttonOK.addActionListener(new java.awt.event.ActionListener() {
@@ -104,11 +106,32 @@ public class loginForm extends javax.swing.JDialog {
 
     private void BouttonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BouttonOKActionPerformed
         // Si login + mdp correct alors connect sinon message
-
+        if(tableLogin.containsKey(loginField.getText()))
+        {
+            if(tableLogin.get(loginField.getText()).equals(passwordField.getText()))
+            {
+                System.out.println("Login correct, connexion");
+                JOptionPane.showMessageDialog(null,"Login correct","Information",JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            }
+            else
+            {
+                System.out.println("Mauvais mot de passe");
+                JOptionPane.showMessageDialog(null,"Mot de passe incorrect","Erreur",JOptionPane.ERROR_MESSAGE);
+                passwordField.setText("");
+            }
+        }
+        else
+        {
+            System.out.println("Login incorrect");
+            JOptionPane.showMessageDialog(null,"Login incorrect","Erreur",JOptionPane.ERROR_MESSAGE);
+            loginField.setText("");
+            passwordField.setText("");
+        }
     }//GEN-LAST:event_BouttonOKActionPerformed
 
     private void BouttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BouttonCancelActionPerformed
-        setValue(-1);
+        System.exit(0);
     }//GEN-LAST:event_BouttonCancelActionPerformed
 
     /**
@@ -151,14 +174,6 @@ public class loginForm extends javax.swing.JDialog {
                 dialog.setVisible(true);
             }
         });
-    }
-    
-    public int getValue() {
-        return value;
-    }
-
-    public void setValue(int nb) {
-        value = nb;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

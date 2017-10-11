@@ -17,6 +17,9 @@ public class apps extends javax.swing.JFrame {
     public apps() {
         initComponents();
         setLocationRelativeTo(null);
+        setVisible(false);
+        loginForm login = new loginForm(this,true);
+        login.setVisible(true);
     }
 
     /**
