@@ -29,7 +29,7 @@ public class apps extends javax.swing.JFrame {
             setVisible(false);
             loginForm loginF = new loginForm(this,true);
             loginF.setVisible(true);
-            util = new utilities(utilities.SQL, login, motdepasse);
+            util = new utilities(utilities.SQL, "user", "bramau");
             connectionState.setText("Connecté");
         } catch (Exception ex) {
             Logger.getLogger(apps.class.getName()).log(Level.SEVERE, null, ex);

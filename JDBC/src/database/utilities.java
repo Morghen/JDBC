@@ -31,7 +31,7 @@ public class utilities {
         this.typeConnection = ptype;
         if(ptype == SQL)
         {
-            nameConnection = "com.mysql.jdbc.driver";
+            nameConnection = "sun.jdbc.odbc.JdbcOdbcDriver";
         }
         else if(ptype == ORACLE)
         {
