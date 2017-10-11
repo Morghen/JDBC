@@ -5,6 +5,10 @@
  */
 package client;
 
+import database.utilities;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Rémy
@@ -14,12 +18,21 @@ public class apps extends javax.swing.JFrame {
     /**
      * Creates new form apps
      */
+    public utilities util;
+    String login;
+    String motdepasse;
+    
     public apps() {
-        initComponents();
-        setLocationRelativeTo(null);
-        setVisible(false);
-        loginForm login = new loginForm(this,true);
-        login.setVisible(true);
+        try {
+            initComponents();
+            setLocationRelativeTo(null);
+            setVisible(false);
+            loginForm loginF = new loginForm(this,true);
+            loginF.setVisible(true);
+            util = new utilities(utilities.SQL, login, motdepasse);
+        } catch (Exception ex) {
+            Logger.getLogger(apps.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -56,6 +69,11 @@ public class apps extends javax.swing.JFrame {
         ScrollPanelTable.setViewportView(TableRequete);
 
         BouttonDemarrer.setText("Démarrer");
+        BouttonDemarrer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                BouttonDemarrerMouseReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,6 +110,11 @@ public class apps extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BouttonDemarrerMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BouttonDemarrerMouseReleased
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_BouttonDemarrerMouseReleased
 
     /**
      * @param args the command line arguments

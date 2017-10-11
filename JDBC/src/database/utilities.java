@@ -15,8 +15,8 @@ import javax.management.Query;
  */
 public class utilities {
     
-    static int ORACLE = 1;
-    static int SQL = 2;
+    public static int ORACLE = 1;
+    public static int SQL = 2;
     
     private int typeConnection;
     private String nameConnection;
@@ -31,7 +31,7 @@ public class utilities {
         this.typeConnection = ptype;
         if(ptype == SQL)
         {
-            nameConnection = "sun.jdbc.odbc.JdbcOdbcDriver";
+            nameConnection = "com.mysql.jdbc.driver";
         }
         else if(ptype == ORACLE)
         {
@@ -54,8 +54,13 @@ public class utilities {
         return instruc.executeQuery(pquery);
     }
     
+    public int update(String pupdate) throws SQLException
+    {
+        return instruc.executeUpdate(pupdate);
+    }
     
-//<editor-fold defaultstate="collapsed" desc="Getter">
+    
+    //<editor-fold defaultstate="collapsed" desc="Getter">
     public String getNameConnection() {
         return nameConnection;
     }
