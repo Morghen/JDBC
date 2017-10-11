@@ -5,6 +5,10 @@
  */
 package client;
 
+import database.utilities;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Rémy
@@ -14,12 +18,22 @@ public class apps extends javax.swing.JFrame {
     /**
      * Creates new form apps
      */
+    public utilities util;
+    String login;
+    String motdepasse;
+    
     public apps() {
-        initComponents();
-        setLocationRelativeTo(null);
-        setVisible(false);
-        loginForm login = new loginForm(this,true);
-        login.setVisible(true);
+        try {
+            initComponents();
+            setLocationRelativeTo(null);
+            setVisible(false);
+            loginForm loginF = new loginForm(this,true);
+            loginF.setVisible(true);
+            util = new utilities(utilities.SQL, login, motdepasse);
+            connectionState.setText("Connecté");
+        } catch (Exception ex) {
+            Logger.getLogger(apps.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -36,6 +50,7 @@ public class apps extends javax.swing.JFrame {
         ScrollPanelTable = new javax.swing.JScrollPane();
         TableRequete = new javax.swing.JTable();
         BouttonDemarrer = new javax.swing.JButton();
+        connectionState = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Client");
@@ -56,6 +71,13 @@ public class apps extends javax.swing.JFrame {
         ScrollPanelTable.setViewportView(TableRequete);
 
         BouttonDemarrer.setText("Démarrer");
+        BouttonDemarrer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                BouttonDemarrerMouseReleased(evt);
+            }
+        });
+
+        connectionState.setText("Non connecter");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -73,13 +95,18 @@ public class apps extends javax.swing.JFrame {
                         .addComponent(ScrollPanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(428, 428, 428)
-                        .addComponent(BouttonDemarrer)))
+                        .addComponent(BouttonDemarrer))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(connectionState)))
                 .addContainerGap(163, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(96, 96, 96)
+                .addGap(38, 38, 38)
+                .addComponent(connectionState)
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(requeteLabel)
                     .addComponent(requeteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -92,6 +119,11 @@ public class apps extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BouttonDemarrerMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BouttonDemarrerMouseReleased
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_BouttonDemarrerMouseReleased
 
     /**
      * @param args the command line arguments
@@ -132,6 +164,7 @@ public class apps extends javax.swing.JFrame {
     private javax.swing.JButton BouttonDemarrer;
     private javax.swing.JScrollPane ScrollPanelTable;
     private javax.swing.JTable TableRequete;
+    private javax.swing.JLabel connectionState;
     private javax.swing.JLabel requeteLabel;
     private javax.swing.JTextField requeteTextField;
     // End of variables declaration//GEN-END:variables
