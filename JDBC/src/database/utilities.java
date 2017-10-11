@@ -5,7 +5,9 @@
  */
 package database;
 
+import com.sun.org.apache.bcel.internal.generic.Instruction;
 import java.sql.*;
+import javax.management.Query;
 
 /**
  *
@@ -14,7 +16,7 @@ import java.sql.*;
 public class utilities {
     
     static int ORACLE = 1;
-    static int SQL = 1;
+    static int SQL = 2;
     
     private int typeConnection;
     private String nameConnection;
@@ -25,6 +27,7 @@ public class utilities {
 
 
     public utilities(int ptype, String plogin, String pmotdepasse) throws ClassNotFoundException, Exception {
+        String tmpCon;
         this.typeConnection = ptype;
         if(ptype == SQL)
         {
@@ -41,9 +44,16 @@ public class utilities {
         Class.forName(nameConnection);
         login = plogin;
         motdepasse = pmotdepasse;
-        DriverManager.getConnection("jdbc:mysql://localhost:3306/DB_Food", login, motdepasse);
+        tmpCon = "jdbc:" + (ptype == SQL ? "mysql://localhost:5500/": "oracle:thin@localhost:1521:")+"DB_AIRPORT"; 
+        DriverManager.getConnection(tmpCon, login, motdepasse);
         instruc =  con.createStatement();
     }
+    
+    public ResultSet query(String pquery) throws SQLException
+    {
+        return instruc.executeQuery(pquery);
+    }
+    
     
 //<editor-fold defaultstate="collapsed" desc="Getter">
     public String getNameConnection() {
