@@ -9,8 +9,10 @@ import database.utilities;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -32,7 +34,8 @@ public class apps extends javax.swing.JFrame {
             setVisible(false);
             loginForm loginF = new loginForm(this,true);
             loginF.setVisible(true);
-            util = new utilities(utilities.SQL, "user", "toor");
+            logmdp = loginF.getValues();
+            util = new utilities(utilities.SQL, logmdp[0], logmdp[1]);
             connectionState.setText("Connecté");
         } catch (Exception ex) {
             Logger.getLogger(apps.class.getName()).log(Level.SEVERE, null, ex);
@@ -139,12 +142,13 @@ public class apps extends javax.swing.JFrame {
             ResultSetMetaData rsmd;
             int rowCount,colCount, i;
             rs = util.query(requeteTextField.getText());
-            DefaultTableModel dtm = new DefaultTableModel();
+            
             rowCount = rs.getRow();
             rsmd = rs.getMetaData();
             colCount = rsmd.getColumnCount();
-            for(int j = 0;j<colCount;j++)
-                dtm.addColumn(rsmd.getColumnName(j));
+            /*for(int j = 0;j<colCount;j++)
+                dtm.addColumn(rsmd.getColumnName(j));*/
+            MyTableModel dtm = new MyTableModel(rs);
             while(rs.next())
             {
                 Object[]  rowData = new Object[colCount];
@@ -155,7 +159,7 @@ public class apps extends javax.swing.JFrame {
                     jTextArea1.setText(jTextArea1.getText()+ "\t" + rs.getObject(i+1));
                 }
                 jTextArea1.setText(jTextArea1.getText()+ "\n");
-                dtm.addRow(rowData);
+                //dtm.addRow(rowData);
             }
             TableRequete.setModel(dtm);
             //dtm.fireTableDataChanged();
@@ -210,4 +214,70 @@ public class apps extends javax.swing.JFrame {
     private javax.swing.JLabel requeteLabel;
     private javax.swing.JTextField requeteTextField;
     // End of variables declaration//GEN-END:variables
+}
+
+class MyTableModel extends AbstractTableModel {
+        private final String[] tableHeaders;
+        ResultSet rs;
+        ResultSetMetaData rsmd;
+
+        public MyTableModel(ResultSet prs){
+            rs = prs;
+            try {
+                rsmd = rs.getMetaData();
+            } catch (SQLException ex) {
+                Logger.getLogger(MyTableModel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            tableHeaders = new String[getColumnCount()];
+            for(int i = 0; i < getColumnCount(); i++)
+            {
+                try {
+                    tableHeaders[i] = rsmd.getColumnName(i+1);
+                } catch (SQLException ex) {
+                    Logger.getLogger(MyTableModel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+           
+        }
+
+        @Override
+        public String getColumnName(int columnIndex) {
+            return tableHeaders[columnIndex];
+        }
+ 
+        @Override
+        public int getRowCount(){
+            int ret = 0;
+            try {
+                ret = ( rs.last() ? rs.getRow() : 0);
+            } catch (SQLException ex) {
+                Logger.getLogger(MyTableModel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return ret;
+        }
+
+        @Override
+        public int getColumnCount(){
+            try {
+                return rsmd.getColumnCount();
+            } catch (SQLException ex) {
+                Logger.getLogger(MyTableModel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return 0;
+        }
+
+        @Override
+        public Object getValueAt(int row, int column){
+            
+            Object myObj = null;
+            try {
+                rs.absolute(row+1);
+                myObj = rs.getObject(column+1);
+            } catch (SQLException ex) {
+                Logger.getLogger(MyTableModel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if(myObj == null)
+                return "NULL";
+            return myObj;
+        }
 }

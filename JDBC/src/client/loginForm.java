@@ -7,6 +7,7 @@ package client;
 
 import java.util.Map;
 import java.util.TreeMap;
+import javafx.scene.input.KeyCode;
 import javax.swing.JOptionPane;
 
 /**
@@ -41,7 +42,6 @@ public class loginForm extends javax.swing.JDialog {
         passwordLabel = new javax.swing.JLabel();
         loginField = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Login");
 
         BouttonOK.setText("OK");
