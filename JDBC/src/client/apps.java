@@ -23,7 +23,7 @@ public class apps extends javax.swing.JFrame {
      * Creates new form apps
      */
     public utilities util;
-    String[] logmdp;
+    public String[] logmdp;
     
     public apps() {
         try {
