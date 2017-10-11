@@ -16,6 +16,10 @@ public class apps extends javax.swing.JFrame {
      */
     public apps() {
         initComponents();
+        setLocationRelativeTo(null);
+        setVisible(false);
+        loginForm login = new loginForm(this,true);
+        login.setVisible(true);
     }
 
     /**
@@ -27,17 +31,63 @@ public class apps extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        requeteLabel = new javax.swing.JLabel();
+        requeteTextField = new javax.swing.JTextField();
+        ScrollPanelTable = new javax.swing.JScrollPane();
+        TableRequete = new javax.swing.JTable();
+        BouttonDemarrer = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Client");
+        setPreferredSize(new java.awt.Dimension(900, 550));
+        setResizable(false);
+
+        requeteLabel.setText("Requete :");
+
+        TableRequete.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        ScrollPanelTable.setViewportView(TableRequete);
+
+        BouttonDemarrer.setText("Démarrer");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(requeteLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(requeteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(248, 248, 248)
+                        .addComponent(ScrollPanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(428, 428, 428)
+                        .addComponent(BouttonDemarrer)))
+                .addContainerGap(163, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(96, 96, 96)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(requeteLabel)
+                    .addComponent(requeteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(BouttonDemarrer)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addComponent(ScrollPanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51))
         );
 
         pack();
@@ -79,5 +129,10 @@ public class apps extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BouttonDemarrer;
+    private javax.swing.JScrollPane ScrollPanelTable;
+    private javax.swing.JTable TableRequete;
+    private javax.swing.JLabel requeteLabel;
+    private javax.swing.JTextField requeteTextField;
     // End of variables declaration//GEN-END:variables
 }
