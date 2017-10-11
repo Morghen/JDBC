@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 public class loginForm extends javax.swing.JDialog {
 
     public Map<String,String> tableLogin = new TreeMap();
+    public String log,mdp;
     
     public loginForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -112,6 +113,7 @@ public class loginForm extends javax.swing.JDialog {
             {
                 System.out.println("Login correct, connexion");
                 JOptionPane.showMessageDialog(null,"Login correct","Information",JOptionPane.INFORMATION_MESSAGE);
+                setValues(loginField.getText(),passwordField.getText());
                 dispose();
             }
             else
@@ -174,6 +176,18 @@ public class loginForm extends javax.swing.JDialog {
                 dialog.setVisible(true);
             }
         });
+    }
+    
+    public void setValues(String login,String passw) {
+        log = login;
+        mdp = passw;
+    }
+    
+    public String[] getValues() {
+        String[] values = new String[2];
+        values[0] = log;
+        values[1] = mdp;
+        return values;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
