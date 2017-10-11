@@ -6,8 +6,12 @@
 package client;
 
 import database.utilities;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -29,7 +33,7 @@ public class apps extends javax.swing.JFrame {
             setVisible(false);
             loginForm loginF = new loginForm(this,true);
             loginF.setVisible(true);
-            util = new utilities(utilities.SQL, "user", "bramau");
+            util = new utilities(utilities.SQL, "user", "toor");
             connectionState.setText("Connecté");
         } catch (Exception ex) {
             Logger.getLogger(apps.class.getName()).log(Level.SEVERE, null, ex);
@@ -51,11 +55,12 @@ public class apps extends javax.swing.JFrame {
         TableRequete = new javax.swing.JTable();
         BouttonDemarrer = new javax.swing.JButton();
         connectionState = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Client");
         setPreferredSize(new java.awt.Dimension(900, 550));
-        setResizable(false);
 
         requeteLabel.setText("Requete :");
 
@@ -79,6 +84,10 @@ public class apps extends javax.swing.JFrame {
 
         connectionState.setText("Non connecter");
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,15 +100,17 @@ public class apps extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(requeteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(248, 248, 248)
-                        .addComponent(ScrollPanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(428, 428, 428)
                         .addComponent(BouttonDemarrer))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(41, 41, 41)
-                        .addComponent(connectionState)))
-                .addContainerGap(163, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(ScrollPanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(68, 68, 68)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(connectionState))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,17 +123,47 @@ public class apps extends javax.swing.JFrame {
                     .addComponent(requeteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(BouttonDemarrer)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                .addComponent(ScrollPanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51))
+                .addGap(70, 70, 70)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(ScrollPanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE))
+                .addGap(44, 44, 44))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BouttonDemarrerMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BouttonDemarrerMouseReleased
-        // TODO add your handling code here:
-        
+        try {
+            // TODO add your handling code here:
+            System.out.println("Requete = " + requeteTextField.getText());
+            ResultSet rs;
+            ResultSetMetaData rsmd;
+            int rowCount,colCount, i;
+            rs = util.query(requeteTextField.getText());
+            DefaultTableModel dtm = new DefaultTableModel();
+            
+            rowCount = rs.getRow();
+            rsmd = rs.getMetaData();
+            colCount = rsmd.getColumnCount();
+            while(rs.next())
+            {
+                Object[]  rowData = new Object[colCount];
+                for(i=0; i < colCount; i++)
+                {
+                    rowData[i] = rs.getObject(i+1);
+                    jTextArea1.setText(jTextArea1.getText()+ " " + rs.getObject(i+1));
+                }
+                jTextArea1.setText(jTextArea1.getText()+ "\n");
+                dtm.addRow(rowData);
+            }
+            TableRequete.setModel(dtm);
+            //dtm.fireTableDataChanged();
+            System.out.println("Fin requete = ");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(apps.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BouttonDemarrerMouseReleased
 
     /**
@@ -165,6 +206,8 @@ public class apps extends javax.swing.JFrame {
     private javax.swing.JScrollPane ScrollPanelTable;
     private javax.swing.JTable TableRequete;
     private javax.swing.JLabel connectionState;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel requeteLabel;
     private javax.swing.JTextField requeteTextField;
     // End of variables declaration//GEN-END:variables

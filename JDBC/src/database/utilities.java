@@ -31,7 +31,7 @@ public class utilities {
         this.typeConnection = ptype;
         if(ptype == SQL)
         {
-            nameConnection = "sun.jdbc.odbc.JdbcOdbcDriver";
+            nameConnection = "org.gjt.mm.mysql.Driver";
         }
         else if(ptype == ORACLE)
         {
@@ -44,8 +44,8 @@ public class utilities {
         Class.forName(nameConnection);
         login = plogin;
         motdepasse = pmotdepasse;
-        tmpCon = "jdbc:" + (ptype == SQL ? "mysql://localhost:5500/": "oracle:thin@localhost:1521:")+"DB_AIRPORT"; 
-        DriverManager.getConnection(tmpCon, login, motdepasse);
+        tmpCon = "jdbc:" + (ptype == SQL ? "mysql://localhost:5500/": "oracle:thin@localhost:1521:")+"BD_AIRPORT"; 
+        con = DriverManager.getConnection(tmpCon, login, motdepasse);
         instruc =  con.createStatement();
     }
     
