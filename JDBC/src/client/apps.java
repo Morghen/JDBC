@@ -30,6 +30,7 @@ public class apps extends javax.swing.JFrame {
             loginForm loginF = new loginForm(this,true);
             loginF.setVisible(true);
             util = new utilities(utilities.SQL, login, motdepasse);
+            connectionState.setText("Connecté");
         } catch (Exception ex) {
             Logger.getLogger(apps.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -49,6 +50,7 @@ public class apps extends javax.swing.JFrame {
         ScrollPanelTable = new javax.swing.JScrollPane();
         TableRequete = new javax.swing.JTable();
         BouttonDemarrer = new javax.swing.JButton();
+        connectionState = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Client");
@@ -75,6 +77,8 @@ public class apps extends javax.swing.JFrame {
             }
         });
 
+        connectionState.setText("Non connecter");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,13 +95,18 @@ public class apps extends javax.swing.JFrame {
                         .addComponent(ScrollPanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(428, 428, 428)
-                        .addComponent(BouttonDemarrer)))
+                        .addComponent(BouttonDemarrer))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(connectionState)))
                 .addContainerGap(163, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(96, 96, 96)
+                .addGap(38, 38, 38)
+                .addComponent(connectionState)
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(requeteLabel)
                     .addComponent(requeteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -155,6 +164,7 @@ public class apps extends javax.swing.JFrame {
     private javax.swing.JButton BouttonDemarrer;
     private javax.swing.JScrollPane ScrollPanelTable;
     private javax.swing.JTable TableRequete;
+    private javax.swing.JLabel connectionState;
     private javax.swing.JLabel requeteLabel;
     private javax.swing.JTextField requeteTextField;
     // End of variables declaration//GEN-END:variables

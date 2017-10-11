@@ -44,6 +44,10 @@
                       <EmptySpace min="-2" pref="428" max="-2" attributes="0"/>
                       <Component id="BouttonDemarrer" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="connectionState" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace pref="163" max="32767" attributes="0"/>
           </Group>
@@ -52,7 +56,9 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+              <Component id="connectionState" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="requeteLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="requeteTextField" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -103,6 +109,11 @@
       <Events>
         <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BouttonDemarrerMouseReleased"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="connectionState">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Non connecter"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
