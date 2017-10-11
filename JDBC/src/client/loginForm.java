@@ -22,7 +22,7 @@ public class loginForm extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        tableLogin.put("jdbc","bramau");
+        tableLogin.put("user","toor");
     }
 
     /**
