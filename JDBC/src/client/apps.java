@@ -134,23 +134,24 @@ public class apps extends javax.swing.JFrame {
 
     private void BouttonDemarrerMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BouttonDemarrerMouseReleased
         try {
-            // TODO add your handling code here:
             System.out.println("Requete = " + requeteTextField.getText());
             ResultSet rs;
             ResultSetMetaData rsmd;
             int rowCount,colCount, i;
             rs = util.query(requeteTextField.getText());
             DefaultTableModel dtm = new DefaultTableModel();
-            
             rowCount = rs.getRow();
             rsmd = rs.getMetaData();
             colCount = rsmd.getColumnCount();
+            for(int j = 0;j<colCount;j++)
+                dtm.addColumn(rsmd.getColumnName(j));
             while(rs.next())
             {
                 Object[]  rowData = new Object[colCount];
                 for(i=0; i < colCount; i++)
                 {
                     rowData[i] = rs.getObject(i+1);
+                    
                     jTextArea1.setText(jTextArea1.getText()+ "\t" + rs.getObject(i+1));
                 }
                 jTextArea1.setText(jTextArea1.getText()+ "\n");
