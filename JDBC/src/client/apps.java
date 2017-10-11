@@ -159,7 +159,6 @@ public class apps extends javax.swing.JFrame {
             TableRequete.setModel(dtm);
             //dtm.fireTableDataChanged();
             System.out.println("Fin requete = ");
-            
         } catch (SQLException ex) {
             Logger.getLogger(apps.class.getName()).log(Level.SEVERE, null, ex);
         }
