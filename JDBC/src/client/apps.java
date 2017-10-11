@@ -23,8 +23,7 @@ public class apps extends javax.swing.JFrame {
      * Creates new form apps
      */
     public utilities util;
-    String login;
-    String motdepasse;
+    String[] logmdp;
     
     public apps() {
         try {
@@ -152,7 +151,7 @@ public class apps extends javax.swing.JFrame {
                 for(i=0; i < colCount; i++)
                 {
                     rowData[i] = rs.getObject(i+1);
-                    jTextArea1.setText(jTextArea1.getText()+ " " + rs.getObject(i+1));
+                    jTextArea1.setText(jTextArea1.getText()+ "\t" + rs.getObject(i+1));
                 }
                 jTextArea1.setText(jTextArea1.getText()+ "\n");
                 dtm.addRow(rowData);
