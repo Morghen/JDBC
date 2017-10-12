@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 public class loginForm extends javax.swing.JDialog {
 
     public Map<String,String> tableLogin = new TreeMap();
-    public String log,mdp;
+    public String log, mdp, ip, port, nomBase;
     
     public loginForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -35,12 +35,15 @@ public class loginForm extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dbButtonGroup = new javax.swing.ButtonGroup();
         BouttonOK = new javax.swing.JButton();
         BouttonCancel = new javax.swing.JButton();
         passwordField = new javax.swing.JPasswordField();
         loginLabel = new javax.swing.JLabel();
         passwordLabel = new javax.swing.JLabel();
         loginField = new javax.swing.JTextField();
+        bdAirportRadioB = new javax.swing.JRadioButton();
+        oracleDBRadioB = new javax.swing.JRadioButton();
 
         setTitle("Login");
 
@@ -62,14 +65,27 @@ public class loginForm extends javax.swing.JDialog {
 
         passwordLabel.setText("Mot de passe :");
 
+        dbButtonGroup.add(bdAirportRadioB);
+        bdAirportRadioB.setSelected(true);
+        bdAirportRadioB.setText("BD_AIRPORT");
+
+        dbButtonGroup.add(oracleDBRadioB);
+        oracleDBRadioB.setText("jRadioButton2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(109, 109, 109)
+                .addComponent(BouttonOK)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BouttonCancel)
+                .addGap(130, 130, 130))
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(passwordLabel)
                             .addComponent(loginLabel))
@@ -78,11 +94,11 @@ public class loginForm extends javax.swing.JDialog {
                             .addComponent(loginField)
                             .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addComponent(BouttonOK)
-                        .addGap(58, 58, 58)
-                        .addComponent(BouttonCancel)))
-                .addContainerGap(79, Short.MAX_VALUE))
+                        .addGap(77, 77, 77)
+                        .addComponent(bdAirportRadioB)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(oracleDBRadioB)))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,11 +111,15 @@ public class loginForm extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(passwordLabel)
                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(86, 86, 86)
+                .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BouttonOK)
-                    .addComponent(BouttonCancel))
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .addComponent(bdAirportRadioB)
+                    .addComponent(oracleDBRadioB))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BouttonCancel)
+                    .addComponent(BouttonOK))
+                .addGap(70, 70, 70))
         );
 
         pack();
@@ -113,7 +133,10 @@ public class loginForm extends javax.swing.JDialog {
             {
                 System.out.println("Login correct, connexion");
                 JOptionPane.showMessageDialog(null,"Login correct","Information",JOptionPane.INFORMATION_MESSAGE);
-                setValues(loginField.getText(),passwordField.getText());
+                if(bdAirportRadioB.isSelected())
+                    setValues(loginField.getText(),passwordField.getText(),"127.0.0.1", "5500", "bd_airport");
+                if(oracleDBRadioB.isSelected())
+                    setValues(loginField.getText(),passwordField.getText(),"127.0.0.1", "1521", "bd_airport");
                 dispose();
             }
             else
@@ -178,23 +201,32 @@ public class loginForm extends javax.swing.JDialog {
         });
     }
     
-    public void setValues(String login,String passw) {
+    public void setValues(String login,String passw, String pip, String pport, String pnomBase) {
         log = login;
         mdp = passw;
+        ip = pip;
+        port = pport;
+        nomBase = pnomBase;
     }
     
     public String[] getValues() {
-        String[] values = new String[2];
+        String[] values = new String[5];
         values[0] = log;
         values[1] = mdp;
+        values[2] = ip;
+        values[3] = port;
+        values[4] = nomBase;
         return values;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BouttonCancel;
     private javax.swing.JButton BouttonOK;
+    private javax.swing.JRadioButton bdAirportRadioB;
+    private javax.swing.ButtonGroup dbButtonGroup;
     private javax.swing.JTextField loginField;
     private javax.swing.JLabel loginLabel;
+    private javax.swing.JRadioButton oracleDBRadioB;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JLabel passwordLabel;
     // End of variables declaration//GEN-END:variables
