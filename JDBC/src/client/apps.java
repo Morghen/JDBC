@@ -9,11 +9,9 @@ import database.utilities;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -36,7 +34,7 @@ public class apps extends javax.swing.JFrame {
             loginF.setVisible(true);
             logmdp = loginF.getValues();
             util = new utilities(utilities.SQL, logmdp[0], logmdp[1]);
-            connectionState.setText("Connecté");
+            connectionState.setText("Connecté à la bd");
         } catch (Exception ex) {
             Logger.getLogger(apps.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -57,12 +55,9 @@ public class apps extends javax.swing.JFrame {
         TableRequete = new javax.swing.JTable();
         BouttonDemarrer = new javax.swing.JButton();
         connectionState = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Client");
-        setPreferredSize(new java.awt.Dimension(900, 550));
 
         requeteLabel.setText("Requete :");
 
@@ -75,6 +70,7 @@ public class apps extends javax.swing.JFrame {
 
             }
         ));
+        TableRequete.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         ScrollPanelTable.setViewportView(TableRequete);
 
         BouttonDemarrer.setText("Démarrer");
@@ -86,10 +82,6 @@ public class apps extends javax.swing.JFrame {
 
         connectionState.setText("Non connecter");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -97,21 +89,22 @@ public class apps extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(requeteLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(requeteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(428, 428, 428)
-                        .addComponent(BouttonDemarrer))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(ScrollPanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(68, 68, 68)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(connectionState))))
+                                .addGap(41, 41, 41)
+                                .addComponent(connectionState))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(64, 64, 64)
+                                .addComponent(requeteLabel)
+                                .addGap(18, 18, 18)
+                                .addComponent(requeteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(321, 321, 321)
+                                .addComponent(BouttonDemarrer)))
+                        .addGap(0, 144, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(ScrollPanelTable)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -119,17 +112,19 @@ public class apps extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(connectionState)
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(requeteLabel)
-                    .addComponent(requeteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(BouttonDemarrer)
-                .addGap(70, 70, 70)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
-                    .addComponent(ScrollPanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE))
-                .addGap(44, 44, 44))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(requeteLabel)
+                        .addGap(116, 116, 116))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(requeteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BouttonDemarrer)
+                        .addGap(35, 35, 35)))
+                .addComponent(ScrollPanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -156,9 +151,9 @@ public class apps extends javax.swing.JFrame {
                 {
                     rowData[i] = rs.getObject(i+1);
                     
-                    jTextArea1.setText(jTextArea1.getText()+ "\t" + rs.getObject(i+1));
+                    //jTextArea1.setText(jTextArea1.getText()+ "\t" + rs.getObject(i+1));
                 }
-                jTextArea1.setText(jTextArea1.getText()+ "\n");
+                //jTextArea1.setText(jTextArea1.getText()+ "\n");
                 //dtm.addRow(rowData);
             }
             TableRequete.setModel(dtm);
@@ -209,8 +204,6 @@ public class apps extends javax.swing.JFrame {
     private javax.swing.JScrollPane ScrollPanelTable;
     private javax.swing.JTable TableRequete;
     private javax.swing.JLabel connectionState;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel requeteLabel;
     private javax.swing.JTextField requeteTextField;
     // End of variables declaration//GEN-END:variables

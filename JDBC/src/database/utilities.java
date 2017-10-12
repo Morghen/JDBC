@@ -44,7 +44,7 @@ public class utilities {
         Class.forName(nameConnection);
         login = plogin;
         motdepasse = pmotdepasse;
-        tmpCon = "jdbc:" + (ptype == SQL ? "mysql://localhost:5500/": "oracle:thin@localhost:1521:")+"BD_AIRPORT"; 
+        tmpCon = "jdbc:" + (ptype == SQL ? "mysql://localhost:5500/": "oracle:thin@localhost:5500:")+"BD_AIRPORT"; 
         con = DriverManager.getConnection(tmpCon, login, motdepasse);
         instruc =  con.createStatement();
     }
