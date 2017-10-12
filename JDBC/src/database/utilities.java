@@ -43,8 +43,11 @@ public class utilities {
         }
         Class.forName(nameConnection);
         login = plogin;
+        // Test oracle
+        login = "cb";
         motdepasse = pmotdepasse;
-        tmpCon = "jdbc:" + (ptype == SQL ? "mysql://localhost:5500/": "oracle:thin@localhost:5500:")+"BD_AIRPORT"; 
+        motdepasse = "oracle";
+        tmpCon = "jdbc:" + (ptype == SQL ? "mysql://localhost:5500/": "oracle:thin@localhost:2222:")+"BD_AIRPORT"; 
         con = DriverManager.getConnection(tmpCon, login, motdepasse);
         instruc =  con.createStatement();
     }
