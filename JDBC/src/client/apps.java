@@ -33,7 +33,7 @@ public class apps extends javax.swing.JFrame {
             loginForm loginF = new loginForm(this,true);
             loginF.setVisible(true);
             logmdp = loginF.getValues();
-            util = new utilities(utilities.SQL, logmdp[0], logmdp[1], logmdp[2], Integer.parseInt(logmdp[3]), logmdp[4]);
+            util = new utilities(utilities.ORACLE, logmdp[0], logmdp[1], logmdp[2], Integer.parseInt(logmdp[3]), logmdp[4]);
             connectionState.setText("Connecté à la bd");
         } catch (Exception ex) {
             Logger.getLogger(apps.class.getName()).log(Level.SEVERE, null, ex);

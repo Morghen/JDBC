@@ -24,6 +24,7 @@ public class loginForm extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         tableLogin.put("user","toor");
+        tableLogin.put("cb","oracle");
     }
 
     /**
@@ -70,7 +71,7 @@ public class loginForm extends javax.swing.JDialog {
         bdAirportRadioB.setText("BD_AIRPORT");
 
         dbButtonGroup.add(oracleDBRadioB);
-        oracleDBRadioB.setText("jRadioButton2");
+        oracleDBRadioB.setText("BD_ORACLE");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,8 +137,8 @@ public class loginForm extends javax.swing.JDialog {
                 if(bdAirportRadioB.isSelected())
                     setValues(loginField.getText(),passwordField.getText(),"127.0.0.1", "5500", "bd_airport");
                 if(oracleDBRadioB.isSelected())
-                    setValues(loginField.getText(),passwordField.getText(),"127.0.0.1", "1521", "bd_airport");
-                dispose();
+                    setValues(loginField.getText(),passwordField.getText(),"localhost", "1521", "cb");
+                setVisible(false);
             }
             else
             {
