@@ -52,6 +52,29 @@ public class utilities {
         instruc =  con.createStatement();
     }
     
+    public utilities(int ptype, String plogin, String pmotdepasse, String ip, int port, String nomBD) throws ClassNotFoundException, Exception {
+        String tmpCon;
+        this.typeConnection = ptype;
+        if(ptype == SQL)
+        {
+            nameConnection = "org.gjt.mm.mysql.Driver";
+        }
+        else if(ptype == ORACLE)
+        {
+            nameConnection = "oracle.jdbc.driver.OracleDriver";
+        }
+        else
+        {
+            throw new Exception("Erreur utilities");
+        }
+        Class.forName(nameConnection);
+        login = plogin;
+        motdepasse = pmotdepasse;
+        tmpCon = "jdbc:" + (ptype == SQL ? "mysql://"+ip+":"+port+"/": "oracle:thin@"+ip+":"+port+":")+nomBD; 
+        con = DriverManager.getConnection(tmpCon, login, motdepasse);
+        instruc =  con.createStatement();
+    }
+    
     public ResultSet query(String pquery) throws SQLException
     {
         return instruc.executeQuery(pquery);
