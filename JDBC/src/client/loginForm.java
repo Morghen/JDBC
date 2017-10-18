@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 public class loginForm extends javax.swing.JDialog {
 
     public Map<String,String> tableLogin = new TreeMap();
-    public String log, mdp, ip, port, nomBase;
+    public String log, mdp, ip, port, nomBase,typeco;
     
     public loginForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -135,9 +135,9 @@ public class loginForm extends javax.swing.JDialog {
                 System.out.println("Login correct, connexion");
                 JOptionPane.showMessageDialog(null,"Login correct","Information",JOptionPane.INFORMATION_MESSAGE);
                 if(bdAirportRadioB.isSelected())
-                    setValues(loginField.getText(),passwordField.getText(),"127.0.0.1", "5500", "bd_airport");
+                    setValues(loginField.getText(),passwordField.getText(),"127.0.0.1", "5500", "bd_airport","sql");
                 if(oracleDBRadioB.isSelected())
-                    setValues(loginField.getText(),passwordField.getText(),"localhost", "1521", "cb");
+                    setValues(loginField.getText(),passwordField.getText(),"localhost", "1521", "orcl","oracle");
                 setVisible(false);
             }
             else
@@ -202,21 +202,23 @@ public class loginForm extends javax.swing.JDialog {
         });
     }
     
-    public void setValues(String login,String passw, String pip, String pport, String pnomBase) {
+    public void setValues(String login,String passw, String pip, String pport, String pnomBase, String typeco) {
         log = login;
         mdp = passw;
         ip = pip;
         port = pport;
         nomBase = pnomBase;
+        this.typeco = typeco;
     }
     
     public String[] getValues() {
-        String[] values = new String[5];
+        String[] values = new String[6];
         values[0] = log;
         values[1] = mdp;
         values[2] = ip;
         values[3] = port;
         values[4] = nomBase;
+        values[5] = typeco;
         return values;
     }
 

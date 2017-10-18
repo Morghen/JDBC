@@ -5,7 +5,7 @@
  */
 package database;
 
-import com.sun.org.apache.bcel.internal.generic.Instruction;
+import oracle.jdbc.driver.OracleDriver;
 import java.sql.*;
 import javax.management.Query;
 
@@ -70,7 +70,7 @@ public class utilities {
         Class.forName(nameConnection);
         login = plogin;
         motdepasse = pmotdepasse;
-        tmpCon = "jdbc:" + (ptype == SQL ? "mysql://"+ip+":"+port+"/": "cb@//"+ip+":"+port+"/")+nomBD; 
+        tmpCon = "jdbc:" + (ptype == SQL ? "mysql://"+ip+":"+port+"/": "oracle:thin:@//"+ip+":"+port+"/")+nomBD; 
         con = DriverManager.getConnection(tmpCon, login, motdepasse);
         instruc =  con.createStatement();
     }
