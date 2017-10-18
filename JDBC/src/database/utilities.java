@@ -73,7 +73,7 @@ public class utilities {
         Class.forName(nameConnection);
         login = plogin;
         motdepasse = pmotdepasse;
-        tmpCon = "jdbc:" + (ptype == SQL ? "mysql://"+ip+":"+port+"/": "oracle:thin:@"+ip+":"+port+"/")+nomBD;
+        tmpCon = "jdbc:" + (ptype == SQL ? "mysql://"+ip+":"+port+"/": "oracle:thin:@//"+ip+":"+port+"/")+nomBD;
         con = DriverManager.getConnection(tmpCon, login, motdepasse);
         instruc =  con.createStatement(TYPE_SCROLL_INSENSITIVE, CONCUR_READ_ONLY);
     }
