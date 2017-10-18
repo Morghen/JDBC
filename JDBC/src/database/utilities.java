@@ -5,9 +5,11 @@
  */
 package database;
 
-import com.sun.org.apache.bcel.internal.generic.Instruction;
+//import oracle.jdbc.driver.OracleDriver;
 import java.sql.*;
 import javax.management.Query;
+import static java.sql.ResultSet.CONCUR_READ_ONLY;
+import static java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE;
 
 /**
  *
@@ -70,9 +72,9 @@ public class utilities {
         Class.forName(nameConnection);
         login = plogin;
         motdepasse = pmotdepasse;
-        tmpCon = "jdbc:" + (ptype == SQL ? "mysql://"+ip+":"+port+"/": "cb@//"+ip+":"+port+"/")+nomBD; 
+        tmpCon = "jdbc:" + (ptype == SQL ? "mysql://"+ip+":"+port+"/": "oracle:thin:@"+ip+":"+port+"/")+nomBD; 
         con = DriverManager.getConnection(tmpCon, login, motdepasse);
-        instruc =  con.createStatement();
+        instruc =  con.createStatement(TYPE_SCROLL_INSENSITIVE, CONCUR_READ_ONLY);
     }
     
     public ResultSet query(String pquery) throws SQLException
