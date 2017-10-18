@@ -25,6 +25,7 @@ public class loginForm extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         tableLogin.put("user","toor");
         tableLogin.put("cb","oracle");
+        tableLogin.put("BD_JOURNALDEBORD","root");
     }
 
     /**
