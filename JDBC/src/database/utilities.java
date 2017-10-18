@@ -27,7 +27,7 @@ public class utilities {
     private Connection con;
     private Statement instruc;
 
-
+//<editor-fold defaultstate="collapsed" desc="Ancienne version NE PAS UTILISEZ">
     public utilities(int ptype, String plogin, String pmotdepasse) throws ClassNotFoundException, Exception {
         String tmpCon;
         this.typeConnection = ptype;
@@ -53,6 +53,7 @@ public class utilities {
         con = DriverManager.getConnection(tmpCon, login, motdepasse);
         instruc =  con.createStatement();
     }
+    //</editor-fold>
     
     public utilities(int ptype, String plogin, String pmotdepasse, String ip, int port, String nomBD) throws ClassNotFoundException, Exception {
         String tmpCon;
