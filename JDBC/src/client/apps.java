@@ -52,12 +52,15 @@ public class apps extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        queryBG = new javax.swing.ButtonGroup();
         requeteLabel = new javax.swing.JLabel();
         requeteTextField = new javax.swing.JTextField();
         ScrollPanelTable = new javax.swing.JScrollPane();
         TableRequete = new javax.swing.JTable();
         BouttonDemarrer = new javax.swing.JButton();
         connectionState = new javax.swing.JLabel();
+        selectRB = new javax.swing.JRadioButton();
+        updateRB = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Client");
@@ -85,6 +88,13 @@ public class apps extends javax.swing.JFrame {
 
         connectionState.setText("Non connecter");
 
+        queryBG.add(selectRB);
+        selectRB.setSelected(true);
+        selectRB.setText("Select");
+
+        queryBG.add(updateRB);
+        updateRB.setText("Update");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -100,32 +110,39 @@ public class apps extends javax.swing.JFrame {
                                 .addGap(64, 64, 64)
                                 .addComponent(requeteLabel)
                                 .addGap(18, 18, 18)
-                                .addComponent(requeteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(321, 321, 321)
-                                .addComponent(BouttonDemarrer)))
+                                .addComponent(requeteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 144, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(ScrollPanelTable)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(117, 117, 117)
+                .addComponent(BouttonDemarrer)
+                .addGap(138, 138, 138)
+                .addComponent(selectRB)
+                .addGap(106, 106, 106)
+                .addComponent(updateRB)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(connectionState)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
-                        .addComponent(requeteLabel)
-                        .addGap(116, 116, 116))
+                        .addComponent(requeteLabel))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
-                        .addComponent(requeteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BouttonDemarrer)
-                        .addGap(35, 35, 35)))
+                        .addComponent(requeteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BouttonDemarrer)
+                    .addComponent(selectRB)
+                    .addComponent(updateRB))
+                .addGap(35, 35, 35)
                 .addComponent(ScrollPanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -137,31 +154,38 @@ public class apps extends javax.swing.JFrame {
         try {
             System.out.println("Requete = " + requeteTextField.getText());
             ResultSet rs;
+            int result;
             ResultSetMetaData rsmd;
             int rowCount,colCount, i;
-            rs = util.query(requeteTextField.getText());
-            
-            rowCount = rs.getRow();
-            rsmd = rs.getMetaData();
-            colCount = rsmd.getColumnCount();
-            /*for(int j = 0;j<colCount;j++)
-                dtm.addColumn(rsmd.getColumnName(j));*/
-            MyTableModel dtm = new MyTableModel(rs);
-            while(rs.next())
+            if(selectRB.isSelected())
             {
-                Object[]  rowData = new Object[colCount];
-                for(i=0; i < colCount; i++)
+                rs = util.query(requeteTextField.getText());
+
+                rowCount = rs.getRow();
+                rsmd = rs.getMetaData();
+                colCount = rsmd.getColumnCount();
+                /*for(int j = 0;j<colCount;j++)
+                    dtm.addColumn(rsmd.getColumnName(j));*/
+                MyTableModel dtm = new MyTableModel(rs);
+                while(rs.next())
                 {
-                    rowData[i] = rs.getObject(i+1);
-                    
-                    //jTextArea1.setText(jTextArea1.getText()+ "\t" + rs.getObject(i+1));
+                    Object[]  rowData = new Object[colCount];
+                    for(i=0; i < colCount; i++)
+                    {
+                        rowData[i] = rs.getObject(i+1);
+
+                        //jTextArea1.setText(jTextArea1.getText()+ "\t" + rs.getObject(i+1));
+                    }
+                    //jTextArea1.setText(jTextArea1.getText()+ "\n");
+                    //dtm.addRow(rowData);
                 }
-                //jTextArea1.setText(jTextArea1.getText()+ "\n");
-                //dtm.addRow(rowData);
+                TableRequete.setModel(dtm);
             }
-            TableRequete.setModel(dtm);
-            //dtm.fireTableDataChanged();
-            System.out.println("Fin requete = ");
+            else if(updateRB.isSelected())
+            {
+                result = util.update(requeteTextField.getText());
+                System.out.println("Update : "+result);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(apps.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -207,8 +231,11 @@ public class apps extends javax.swing.JFrame {
     private javax.swing.JScrollPane ScrollPanelTable;
     private javax.swing.JTable TableRequete;
     private javax.swing.JLabel connectionState;
+    private javax.swing.ButtonGroup queryBG;
     private javax.swing.JLabel requeteLabel;
     private javax.swing.JTextField requeteTextField;
+    private javax.swing.JRadioButton selectRB;
+    private javax.swing.JRadioButton updateRB;
     // End of variables declaration//GEN-END:variables
 }
 

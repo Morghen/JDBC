@@ -88,6 +88,10 @@ public class utilities {
         return instruc.executeUpdate(pupdate);
     }
     
+    public boolean execute(String pupdate) throws SQLException
+    {
+        return instruc.execute(pupdate);
+    }
     
     //<editor-fold defaultstate="collapsed" desc="Getter">
     public String getNameConnection() {
