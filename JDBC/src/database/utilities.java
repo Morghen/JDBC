@@ -7,7 +7,6 @@ package database;
 
 //import oracle.jdbc.driver.OracleDriver;
 import java.sql.*;
-import javax.management.Query;
 import static java.sql.ResultSet.CONCUR_READ_ONLY;
 import static java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE;
 
